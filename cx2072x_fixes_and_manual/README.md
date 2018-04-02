@@ -2,14 +2,13 @@
 
 Most of the following information are from these sources:
 
-- https://bugzilla.kernel.org/show_bug.cgi?id=115531 (a Kernel bugreport)
-- https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git (A repository with all the fixes, but for an older kernel)
-- https://github.com/Grippentech/Asus-E200HA-Linux-Post-Install-Script (A Repo that contains all these fixes but only for kernels up to 4.12)
+- [Kernel Bug #115531](https://bugzilla.kernel.org/show_bug.cgi?id=115531)
+- [Repository with the Fixes for an older kernel](https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git)
+- [Asus E200HA Fix-SCript-Repo by Grippentech](https://github.com/Grippentech/Asus-E200HA-Linux-Post-Install-Script)
 
 You basically need to follow the instructions in [this comment](https://bugzilla.kernel.org/show_bug.cgi?id=115531#c64) from the bugreport. sadly they are not very detailed, so here is what needs to be done:
 
-1. Get the Kernel
-   Either download it from this github site, or build it yourself (see "Building the Kernel")
+1. Get the Kernel. Either download it from this github site, or build it yourself (see "Building the Kernel")
 2. Install the kernel by running
    ```
    dpkg -i LINUX_IMAGE_DEB_PACKAGE.deb
@@ -23,8 +22,8 @@ You basically need to follow the instructions in [this comment](https://bugzilla
 
 ## Some base info
 
-- This Kernel ist a based on the master-branch from https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git (version 4.16-rc5 at the time of writing this), 
-- I Applied the fixes mentioned [here](https://bugzilla.kernel.org/show_bug.cgi?id=115531#c41) to it
+- This Kernel ist based on the master-branch from https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git (version 4.16-rc5 at the time of writing this), 
+- I Applied the fixes mentioned [here](https://bugzilla.kernel.org/show_bug.cgi?id=115531#c41) to it (commits [d421eba](https://github.com/heikomat/linux_with_cx2072x/commit/d421eba552fee988da216a6906709feb6f6baddc), [caa27f2](https://github.com/heikomat/linux_with_cx2072x/commit/caa27f25a4e5471f154bdfde1c1d523817124729), [0af7a6e](https://github.com/heikomat/linux_with_cx2072x/commit/0af7a6e42c9956b1693c038b7049ee01288ddb09), [4b3e5e8](https://github.com/heikomat/linux_with_cx2072x/commit/9cfd9b10a9278e33c0bad0e21b539ee59d3d2c37), [4b3e5e8](https://github.com/heikomat/linux_with_cx2072x/commit/4b3e5e8658228c526e388480ee5a37f28db30476), [5994ef6](https://github.com/heikomat/linux_with_cx2072x/commit/5994ef618107c4c4a317eda768c366a870e1719a) and [27474f1](https://github.com/heikomat/linux_with_cx2072x/commit/27474f11a91d6b5c1b200c4ca158bbd0294c44db))
 - These fixes were for older kernels (up to 4.13), so i adjusted them to the best of my knowledge to work in the current kernel
 - Keeping this up to date should be possible, though i havent tried it yet
 - These instructions are written for debian
@@ -39,14 +38,18 @@ git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc kernel-package
 ## Configuring
 
 - Copy a base config: `cp -v /boot/config-$(uname -r) .config`
-- run `make menuconfig`
-- select these configurations:
-  - Device Drivers -> Sound card support -> Advanced Linux Sound Architecture -> ALSA for SoC audio support -> CODEC drivers -> Conexant CX2072 CODEC
-  - Device Drivers -> Sound card support -> Advanced Linux Sound Architecture -> ALSA for SoC audio support -> Intel ASoC SST drivers -> Intel Machine drivers > Baytrail and Cherrytrail with CX2072X codec
+- Run `make menuconfig`
+- Enable these configurations:
+  - ```
+    Device Drivers -> Sound card support -> Advanced Linux Sound Architecture -> ALSA for SoC audio support -> CODEC drivers -> Conexant CX2072 CODEC
+    ```
+  - ```
+     Device Drivers -> Sound card support -> Advanced Linux Sound Architecture -> ALSA for SoC audio support -> Intel ASoC SST drivers -> Intel Machine drivers > Baytrail and Cherrytrail with CX2072X codec
+     ```
 
 ## Building
 
-replace the number with your number of cores and run:
+replace the `8` with the number of cores in your system and run:
 ```
 fakeroot make-kpkg --initrd kernel_image kernel_headers -j 8
 ```

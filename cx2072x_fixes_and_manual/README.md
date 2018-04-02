@@ -23,7 +23,7 @@ You basically need to follow the instructions in [this comment](https://bugzilla
 ## Some base info
 
 - This Kernel ist based on the master-branch from https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git (version 4.16-rc5 at the time of writing this)
-- I Applied the fixes mentioned [here](https://bugzilla.kernel.org/show_bug.cgi?id=115531#c41) to it (commits [d421eba](https://github.com/heikomat/linux_with_cx2072x/commit/d421eba552fee988da216a6906709feb6f6baddc), [caa27f2](https://github.com/heikomat/linux_with_cx2072x/commit/caa27f25a4e5471f154bdfde1c1d523817124729), [0af7a6e](https://github.com/heikomat/linux_with_cx2072x/commit/0af7a6e42c9956b1693c038b7049ee01288ddb09), [4b3e5e8](https://github.com/heikomat/linux_with_cx2072x/commit/9cfd9b10a9278e33c0bad0e21b539ee59d3d2c37), [4b3e5e8](https://github.com/heikomat/linux_with_cx2072x/commit/4b3e5e8658228c526e388480ee5a37f28db30476), [5994ef6](https://github.com/heikomat/linux_with_cx2072x/commit/5994ef618107c4c4a317eda768c366a870e1719a) and [27474f1](https://github.com/heikomat/linux_with_cx2072x/commit/27474f11a91d6b5c1b200c4ca158bbd0294c44db))
+- I Applied the fixes mentioned [here](https://bugzilla.kernel.org/show_bug.cgi?id=115531#c41) to it (See [this PR](https://github.com/heikomat/linux_with_cx2072x/pull/1))
 - These fixes were for older kernels (up to 4.13), so i adjusted them to the best of my knowledge to work in the current kernel
 - Keeping this up to date should be possible, though i havent tried it yet
 - These instructions are written for debian

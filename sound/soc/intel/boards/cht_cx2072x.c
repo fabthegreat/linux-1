@@ -293,10 +293,6 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
 	struct snd_soc_acpi_mach *mach = pdev->dev.platform_data;
 	const char *i2c_name = NULL;
 
-	/* register the soc card */
-	// chtcx2072x_card.dev = &pdev->dev;
-	// mach = chtcx2072x_card.dev->platform_data;
-
 	/* fix index of codec dai */
 	dai_index = MERR_DPCM_COMPR + 1;
 	for (i = 0; i < ARRAY_SIZE(cht_dailink); i++) {
@@ -314,6 +310,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
 		cht_dailink[dai_index].codec_name = cht_cx_codec_name;
 	}
 
+	/* register the soc card */
 	chtcx2072x_card.dev = &pdev->dev;
 	return devm_snd_soc_register_card(&pdev->dev, &chtcx2072x_card);
 }

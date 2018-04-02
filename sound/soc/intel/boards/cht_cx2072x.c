@@ -71,7 +71,6 @@ static int cht_aif1_hw_params(struct snd_pcm_substream *substream,
 }
 
 static struct snd_soc_jack cht_cx_headset;
-static struct snd_soc_jack_gpio cht_cx_gpio;
 
 /* Headset jack detection DAPM pins */
 static struct snd_soc_jack_pin cht_cx_headset_pins[] = {
@@ -85,16 +84,35 @@ static struct snd_soc_jack_pin cht_cx_headset_pins[] = {
 	},
 };
 
+static const struct acpi_gpio_params headset_gpios = { 0, 0, false };
+
+static const struct acpi_gpio_mapping acpi_cht_cx2072x_gpios[] = {
+	{ "headset-gpios", &headset_gpios, 1 },
+	{},
+};
+
 static int cht_cx_jack_status_check(void *data)
 {
 	return cx2072x_get_jack_state(data);
 }
+
+static struct snd_soc_jack_gpio cht_cx_gpio = {
+	.name = "headset",
+	.report = SND_JACK_HEADSET | SND_JACK_BTN_0,
+	.debounce_time = 150,
+	.wake = true,
+	.jack_status_check = cht_cx_jack_status_check,
+};
 
 static int cht_codec_init(struct snd_soc_pcm_runtime *rtd)
 {
 	int ret;
 	struct snd_soc_card *card = rtd->card;
 	struct snd_soc_codec *codec = rtd->codec;
+
+	if (devm_acpi_dev_add_driver_gpios(codec->dev,
+					   acpi_cht_cx2072x_gpios))
+		dev_warn(rtd->dev, "Unable to add GPIO mapping table\n");
 
 	card->dapm.idle_bias_off = true;
 
@@ -115,12 +133,7 @@ static int cht_codec_init(struct snd_soc_pcm_runtime *rtd)
 		return ret;
 
 	cht_cx_gpio.gpiod_dev = codec->dev;
-	cht_cx_gpio.name = "headphone detect";
-	cht_cx_gpio.report = SND_JACK_HEADSET | SND_JACK_BTN_0;
-	cht_cx_gpio.debounce_time = 150;
-	cht_cx_gpio.wake = true;
 	cht_cx_gpio.data = codec;
-	cht_cx_gpio.jack_status_check = cht_cx_jack_status_check;
 
 	ret = snd_soc_jack_add_gpios(&cht_cx_headset, 1, &cht_cx_gpio);
 	if (ret) {
@@ -305,11 +318,18 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
 	return devm_snd_soc_register_card(&pdev->dev, &chtcx2072x_card);
 }
 
+static int snd_cht_mc_remove(struct platform_device *pdev)
+{
+	snd_soc_jack_free_gpios(&cht_cx_headset, 1, &cht_cx_gpio);
+	return 0;
+}
+
 static struct platform_driver snd_cht_mc_driver = {
 	.driver = {
 		.name = "cht-cx2072x",
 	},
 	.probe = snd_cht_mc_probe,
+	.remove = snd_cht_mc_remove,
 };
 module_platform_driver(snd_cht_mc_driver);
 

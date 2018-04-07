@@ -24,8 +24,9 @@ Most of the following information are from these sources:
 ## Possible fixes if audio is still not working:
 - Remove possibly existing user-pulse-config with `rm -rf ~/.config/pulse/*`
 - Set pulseaudios default device:
-   1. `pacmd set-card-profile 1 output:HiFi`
-   1. `pacmd set-default-sink 1`
+   1. check wich index your non-hdmi audio device has with `pacmd list-sources`
+   1. `pacmd set-card-profile 1 output:HiFi` (replacing the 1 with the audio-device-index)
+   1. `pacmd set-default-sink 1` (replacing the 1 with the audio-device-index)
 
 ## Getting a detailed pulseaudio log, for when debugging is necessary
 1. Enable debug-messages for pulseaudio by editing `/etc/pulse/daemon.conf`

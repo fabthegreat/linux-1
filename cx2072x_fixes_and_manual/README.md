@@ -7,7 +7,7 @@ Most of the following information are from these sources:
 
 ## General sound setup:
 
-1. Get the Kernel with cx2072x support from [here](https://github.com/heikomat/linux/releases), or build it yourself (see [building the kernel](https://github.com/heikomat/linux/blob/cx2072x/cx2072x_fixes_and_manual/building_the_kernel.md#building-the-kernel))
+1. Get the Kernel with cx2072x support from [here](https://github.com/heikomat/linux/releases), or build it yourself (see [building the kernel](building_the_kernel.md#building-the-kernel))
 1. Install the kernel by running
    ```
    dpkg -i LINUX_IMAGE_DEB_PACKAGE.deb
@@ -49,7 +49,7 @@ Most of the following information are from these sources:
    1. Remove the line you just added from `/etc/apt/sources.list`
    1. `sudo apt update`
    1. reboot
-1. Follow all the steps from the [general setup](https://gist.github.com/heikomat/995ab0c5d06e008e6d54411eeb59f75b#general-sound-setup)
-1. If sound is not working yet, apply the fixes described [here](https://gist.github.com/heikomat/995ab0c5d06e008e6d54411eeb59f75b#possible-fixes-if-audio-is-still-not-working)
+1. Follow all the steps from the [general setup](README.md#general-sound-setup)
+1. If sound is not working yet, apply the fixes described [here](README.md#possible-fixes-if-audio-is-still-not-working)
 
-If Audio is still not working, give us a detailed pulseaudio-log as described [here](https://gist.github.com/heikomat/995ab0c5d06e008e6d54411eeb59f75b#getting-a-detailed-pulseaudio-log-for-when-debugging-is-necessary)
+If Audio is still not working, give us a detailed pulseaudio-log as described [here](README.md#getting-a-detailed-pulseaudio-log-for-when-debugging-is-necessary)

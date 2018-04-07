@@ -13,7 +13,7 @@ Most of the following information are from these sources:
    dpkg -i LINUX_IMAGE_DEB_PACKAGE.deb
    dpkg -i LINUX_HEADERS_DEB_PACKAGE.deb
    ```
-1. Have `alsa` and `pulseaudio` and `firmware-linux` installed (the last one containing intel/fw_sst_22a8.bin)
+1. Have `alsa` and `pulseaudio` and `firmware-intel-sound` installed (the last one containing intel/fw_sst_22a8.bin)
 1. Copy the `chtcx2072x.conf` and `HiFi.conf` (from the chtcx2072x folder) to `/usr/share/alsa/ucm/chtcx2072x` (creating the folder first)
 1. Set `realtime-scheduling = no` in `/etc/pulse/daemon.conf` (see [this issue-comment](https://github.com/Grippentech/Asus-E200HA-Linux-Post-Install-Script/issues/29#issuecomment-355113121))
    1. Make sure you edit the file as root, for example with `sudo nano /etc/pulse/daemon.conf`

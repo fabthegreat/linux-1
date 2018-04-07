@@ -6,7 +6,7 @@ Most of the following information are from these sources:
 
 # General sound setup:
 
-1. Get the Kernel with cx2072x support from [here](https://github.com/heikomat/linux/releases)
+1. Get the Kernel with cx2072x support from [here](https://github.com/heikomat/linux/releases), or build it yourself (see [building the kernel](https://github.com/heikomat/linux/blob/cx2072x/cx2072x_fixes_and_manual/building_the_kernel.md#building-the-kernel))
 1. Install the kernel by running
    ```
    dpkg -i LINUX_IMAGE_DEB_PACKAGE.deb

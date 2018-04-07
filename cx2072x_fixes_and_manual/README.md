@@ -25,7 +25,7 @@ Most of the following information are from these sources:
 - Remove possibly existing user-pulse-config with `rm -rf ~/.config/pulse/*`
 - Set pulseaudios default device:
    1. check wich index your non-hdmi audio device has with `pacmd list-sources`
-   1. `pacmd set-card-profile 1 output:HiFi` (replacing the 1 with the audio-device-index)
+   1. `pacmd set-card-profile 1 HiFi` (replacing the 1 with the audio-device-index)
    1. `pacmd set-default-sink 1` (replacing the 1 with the audio-device-index)
 
 ## Getting a detailed pulseaudio log, for when debugging is necessary

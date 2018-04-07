@@ -1,10 +1,11 @@
+# Make audio work on cx2072x devices like the Asus E200HA
 Most of the following information are from these sources:
 
 - [Kernel Bug #115531](https://bugzilla.kernel.org/show_bug.cgi?id=115531)
 - [Repository with the Fixes for an older kernel](https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git)
 - [Asus E200HA fix-script-Repo by Grippentech](https://github.com/Grippentech/Asus-E200HA-Linux-Post-Install-Script)
 
-# General sound setup:
+## General sound setup:
 
 1. Get the Kernel with cx2072x support from [here](https://github.com/heikomat/linux/releases), or build it yourself (see [building the kernel](https://github.com/heikomat/linux/blob/cx2072x/cx2072x_fixes_and_manual/building_the_kernel.md#building-the-kernel))
 1. Install the kernel by running
@@ -20,13 +21,13 @@ Most of the following information are from these sources:
    1. **make sure you removed the `;` at the beginning of the line, this is important!**
 1. Reboot
 
-# Possible fixes if audio is still not working:
+## Possible fixes if audio is still not working:
 - Remove possibly existing user-pulse-config with `rm -rf ~/.config/pulse/*`
 - Set pulseaudios default device:
    1. `pacmd set-card-profile 1 output:HiFi`
    1. `pacmd set-default-sink 1`
 
-# Getting a detailed pulseaudio log, for when debugging is necessary
+## Getting a detailed pulseaudio log, for when debugging is necessary
 1. Enable debug-messages for pulseaudio by editing `/etc/pulse/daemon.conf`
    1. Make sure you edit the file as root, for example with `sudo nano /etc/pulse/daemon.conf`
    1. Change `; log-level = notice` to `log-level = debug`
@@ -38,7 +39,7 @@ Most of the following information are from these sources:
    ```
 1. Give use the pulselog.txt you now have on your Desktop
 
-# Detailed manual for Ubuntu
+## Detailed manual for Ubuntu
 1. Install Ubuntu
 1. If you chose Ubuntu 17.10, install pulseaudio 11.1 like this (might be optional, but i did this and it at least didn't break it):
    1. `sudo nano /etc/apt/sources.list`

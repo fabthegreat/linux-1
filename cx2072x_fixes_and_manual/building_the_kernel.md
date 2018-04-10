@@ -2,7 +2,7 @@
 
 ## Some base info
 
-- This Kernel ist based on the master-branch from https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git (version 4.16-rc5 at the time of writing this)
+- This Kernel ist based on the master-branch from https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git (version 4.16 at the time of writing this)
 - I Applied the fixes mentioned [here](https://bugzilla.kernel.org/show_bug.cgi?id=115531#c41) to it (See [this PR](https://github.com/heikomat/linux_with_cx2072x/pull/1))
 - These fixes were for older kernels (up to 4.13), so i adjusted them to the best of my knowledge to work in the current kernel
 - Keeping this up to date should be possible, though i havent tried it yet

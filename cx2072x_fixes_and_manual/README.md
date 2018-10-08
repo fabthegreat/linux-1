@@ -15,8 +15,8 @@ Most of the following information are from these sources:
 - [Repository with the Fixes for an older kernel](https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git)
 - [Asus E200HA fix-script-Repo by Grippentech](https://github.com/Grippentech/Asus-E200HA-Linux-Post-Install-Script)
 
-This manual is for debain and derivates of it, though it can probably be adapted
-for any linux system. Debian and Ubuntu users can use the [script provided](https://gist.github.com/heikomat/3fe272431b44b580c933bfb901a92257)
+This manual is for debain and derivates of it, though it can ~~probably~~definitely be adapted
+for other linux systems (see [here](https://github.com/Grippy98/Asus-E200HA-Linux-Post-Install-Script/issues/30#issuecomment-404034681)). Debian and Ubuntu users can use the [script provided](https://gist.github.com/heikomat/3fe272431b44b580c933bfb901a92257)
 above. Its goal is to do the steps described here:
 
 1. Get the Kernel with the cx2072x codec driver and the cx2072x machine driver from [releases](https://github.com/heikomat/linux/releases), or build it yourself (see [building the kernel](building_the_kernel.md#building-the-kernel))

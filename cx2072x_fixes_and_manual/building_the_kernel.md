@@ -5,8 +5,8 @@
 - This Kernel ist based on the master-branch from https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git (version 4.16 at the time of writing this)
 - I Applied the fixes mentioned [here](https://bugzilla.kernel.org/show_bug.cgi?id=115531#c41) to it (See [this PR](https://github.com/heikomat/linux_with_cx2072x/pull/1))
 - These fixes were for older kernels (up to 4.13), so i adjusted them to the best of my knowledge to work in the current kernel
-- Keeping this up to date should be possible, though i havent tried it yet
-- These instructions are written for debian
+- Keeping this up to date should is possible (updated to 4.19-rc7 at the time of writing this)
+- These instructions are written for debian, but they do work on ubuntu and this kernel has also been successfully build for arch (see [here](https://github.com/Grippy98/Asus-E200HA-Linux-Post-Install-Script/issues/30#issuecomment-404034681))
 
 ## Prerequesites
 
@@ -26,10 +26,14 @@ git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc kernel-package
   - ```
      Device Drivers -> Sound card support -> Advanced Linux Sound Architecture -> ALSA for SoC audio support -> Intel ASoC SST drivers -> Intel Machine drivers > Baytrail and Cherrytrail with CX2072X codec
      ```
+- Remove the string in this configuration:
+  - ```
+     Cryptographic API -> Certificates for signature checking -> Provide system-wide ring of trusted keys -> Additional X.509 keys for default system keyring
+    ```
 
 ## Building
 
 replace the `8` with the number of cores in your system and run:
 ```
-fakeroot make-kpkg --initrd kernel_image kernel_headers -j 8
+make deb-pkg -j 8
 ```

@@ -12,7 +12,7 @@ wget -qO- https://gist.github.com/heikomat/3fe272431b44b580c933bfb901a92257/raw 
 Most of the following information are from these sources:
 
 - [Kernel Bug #115531](https://bugzilla.kernel.org/show_bug.cgi?id=115531)
-- [Repository with the Fixes for an older kernel](https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git)
+- [Repository with the Fixes](https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git)
 - [Asus E200HA fix-script-Repo by Grippentech](https://github.com/Grippentech/Asus-E200HA-Linux-Post-Install-Script)
 
 This manual is for debain and derivates of it, though it can ~~probably~~definitely be adapted

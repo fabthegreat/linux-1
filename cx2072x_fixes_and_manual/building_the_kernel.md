@@ -10,7 +10,7 @@
 
 There is a branch with a dockerfile to build the debian/ubuntu packages for this kernel. I added it so i can build the kernel on macOS, so i don't have to dualboot.
 
-See [this build-script](https://github.com/heikomat/linux/blob/dockerized_deb_build/build.sh), which uses [this Dockerfile](https://github.com/heikomat/linux/blob/dockerized_deb_build/Dockerfile), both from [this branch](https://github.com/heikomat/linux/tree/dockerized_deb_build)
+See [this build-script](https://github.com/heikomat/linux_cx2072x_build/blob/master/build_debian.sh), which uses [this Dockerfile](https://github.com/heikomat/linux_cx2072x_build/blob/master/Dockerfile_debian), both from [this repo](https://github.com/heikomat/linux_cx2072x_build)
 
 Be prepared for the docker image to get about 27GB in size. As you can see in the Dockerfile, it builds in an ubuntu container by pulling from the cx2072x-branch. you might want to adjust the number of threads used.
 

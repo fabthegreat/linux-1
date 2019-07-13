@@ -1,8 +1,9 @@
 # Make audio work on cx2072x devices like the Asus E200HA
 
 **Good News everyone!**
-Starting with Version 5.3, the default linux kernel will support the cx2072x (see [this](https://github.com/torvalds/linux/commit/3917da94f787e6c907e440653ead0c666a71379e) commit)
-This means that installing this custom patched kernel will now longer be required if you already use kernel 5.3 or newer!
+
+Starting with Version 5.3, the default linux kernel will support the cx2072x (see [this](https://github.com/torvalds/linux/commit/3917da94f787e6c907e440653ead0c666a71379e) commit)  
+This means that installing this custom patched kernel will now longer be required if you already use kernel 5.3 or newer!  
 You'll probably still need the alsa-ucm files, but this is great because it massively simplifies the installation and reduces the possibility of problems
 
 ## TL;DR

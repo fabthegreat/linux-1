@@ -1,10 +1,10 @@
-// SPDX-License-Identifier: GPL-2.0
-//
-// ALSA SoC CX20721/CX20723 codec driver
-//
-// Copyright:	(C) 2017 Conexant Systems, Inc.
-// Author:	Simon Ho, <Simon.ho@conexant.com>
-//
+/* SPDX-License-Identifier: GPL-2.0 */
+/*
+ * ALSA SoC CX20721/CX20723 codec driver
+ *
+ * Copyright:	(C) 2017 Conexant Systems, Inc.
+ * Author:	Simon Ho, <Simon.ho@conexant.com>
+ */
 
 #ifndef __CX2072X_H__
 #define __CX2072X_H__
@@ -141,7 +141,9 @@
 #define CX2072X_UM_INTERRUPT_CRTL_E			0x6e14
 #define CX2072X_CODEC_TEST2				0x7108
 #define CX2072X_CODEC_TEST9				0x7124
+#define CX2072X_CODEC_TESTXX				0x7290
 #define CX2072X_CODEC_TEST20				0x7310
+#define CX2072X_CODEC_TEST24				0x731c
 #define CX2072X_CODEC_TEST26				0x7328
 #define CX2072X_ANALOG_TEST3				0x718c
 #define CX2072X_ANALOG_TEST4				0x7190
@@ -165,25 +167,20 @@
 #define CX2072X_DIGITAL_TEST19				0x708c
 #define CX2072X_DIGITAL_TEST20				0x7090
 
-#define CX2072X_MAX_EQ_BAND	7
-#define CX2072X_MAX_EQ_COEFF	11
-#define CX2072X_MAX_DRC_REGS	9
-#define CX2072X_MIC_EQ_COEFF	10
+/* not used in the current code, for future extensions (if any) */
+#define CX2072X_MAX_EQ_BAND		7
+#define CX2072X_MAX_EQ_COEFF		11
+#define CX2072X_MAX_DRC_REGS		9
+#define CX2072X_MIC_EQ_COEFF		10
+#define CX2072X_PLBK_EQ_BAND_NUM	7
+#define CX2072X_PLBK_EQ_COEF_LEN	11
+#define CX2072X_PLBK_DRC_PARM_LEN	9
+#define CX2072X_CLASSD_AMP_LEN		6
 
 /* DAI interfae type */
 #define CX2072X_DAI_HIFI	1
 #define CX2072X_DAI_DSP		2
 #define CX2072X_DAI_DSP_PWM	3 /* 4 ch, including mic and AEC */
-
-enum cx2072x_jack_types {
-	CX2072X_JACK_NONE = 0x0000,
-	CX2072X_JACK_HEADPHONE = 0x0001,
-	CX2072X_JACK_APPLE_HEADSET = 0x0002,
-	CX2072X_JACK_NOKIE_HEADSET = 0x0003,
-};
-
-int snd_soc_cx2072x_enable_jack_detect(struct snd_soc_component *codec);
-int snd_soc_cx2072x_get_jack_state(struct snd_soc_component *codec);
 
 enum cx2072x_reg_sample_size {
 	CX2072X_SAMPLE_SIZE_8_BITS = 0,

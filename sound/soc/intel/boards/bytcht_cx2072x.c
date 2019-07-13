@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0
 //
-//  bytcht_cx207x.c - ASoC DPCM Machine driver for Baytrail / CherryTrail
-//                    platforms with CX2072X codec
+// ASoC DPCM Machine driver for Baytrail / Cherrytrail platforms with
+// CX2072X codec
 //
 
 #include <linux/acpi.h>
@@ -38,8 +38,6 @@ static const struct snd_soc_dapm_route byt_cht_cx2072x_audio_map[] = {
 	{"codec_in0", NULL, "ssp2 Rx"},
 	{"codec_in1", NULL, "ssp2 Rx"},
 	{"ssp2 Rx", NULL, "Capture"},
-	{"ssp0 Tx", NULL, "modem_out"},
-	{"modem_in", NULL, "ssp0 Rx"},
 };
 
 static const struct snd_kcontrol_new byt_cht_cx2072x_controls[] = {
@@ -67,19 +65,6 @@ static const struct acpi_gpio_params byt_cht_cx2072x_headset_gpios;
 static const struct acpi_gpio_mapping byt_cht_cx2072x_acpi_gpios[] = {
 	{ "headset-gpios", &byt_cht_cx2072x_headset_gpios, 1 },
 	{},
-};
-
-static int byt_cht_cx2072x_jack_status_check(void *data)
-{
-	return snd_soc_cx2072x_get_jack_state(data);
-}
-
-static struct snd_soc_jack_gpio byt_cht_cx2072x_gpio = {
-	.name = "headset",
-	.report = SND_JACK_HEADSET | SND_JACK_BTN_0,
-	.debounce_time = 150,
-	.wake = true,
-	.jack_status_check = byt_cht_cx2072x_jack_status_check,
 };
 
 static int byt_cht_cx2072x_init(struct snd_soc_pcm_runtime *rtd)
@@ -110,16 +95,9 @@ static int byt_cht_cx2072x_init(struct snd_soc_pcm_runtime *rtd)
 	if (ret)
 		return ret;
 
-	byt_cht_cx2072x_gpio.gpiod_dev = codec->dev;
-	byt_cht_cx2072x_gpio.data = codec;
-	ret = snd_soc_jack_add_gpios(&byt_cht_cx2072x_headset, 1,
-				     &byt_cht_cx2072x_gpio);
-	if (ret) {
-		dev_err(rtd->dev, "Adding jack GPIO failed\n");
-		return ret;
-	}
+	snd_soc_component_set_jack(codec, &byt_cht_cx2072x_headset, NULL);
 
-	snd_soc_cx2072x_enable_jack_detect(codec);
+	snd_soc_dai_set_bclk_ratio(rtd->codec_dai, 50);
 
 	return ret;
 }
@@ -160,7 +138,6 @@ static int byt_cht_cx2072x_fixup(struct snd_soc_pcm_runtime *rtd,
 		return ret;
 	}
 
-	snd_soc_dai_set_bclk_ratio(rtd->codec_dai, 50);
 	return 0;
 }
 
@@ -203,7 +180,7 @@ static struct snd_soc_dai_link byt_cht_cx2072x_dais[] = {
 	/* back ends */
 	{
 		.name = "SSP2-Codec",
-		.id = 1,
+		.id = 0,
 		.cpu_dai_name = "ssp2-port",
 		.platform_name = "sst-mfld-platform",
 		.no_pcm = 1,
@@ -238,7 +215,7 @@ static char codec_name[SND_ACPI_I2C_ID_LEN];
 static int snd_byt_cht_cx2072x_probe(struct platform_device *pdev)
 {
 	struct snd_soc_acpi_mach *mach;
-	const char *i2c_name;
+	struct acpi_device *adev;
 	int dai_index = 0;
 	int i, ret;
 
@@ -255,9 +232,11 @@ static int snd_byt_cht_cx2072x_probe(struct platform_device *pdev)
 	}
 
 	/* fixup codec name based on HID */
-	i2c_name = acpi_dev_get_first_match_name(mach->id, NULL, -1);
-	if (i2c_name) {
-		snprintf(codec_name, sizeof(codec_name), "i2c-%s", i2c_name);
+	adev = acpi_dev_get_first_match_dev(mach->id, NULL, -1);
+	if (adev) {
+		snprintf(codec_name, sizeof(codec_name), "i2c-%s",
+			 acpi_dev_name(adev));
+		put_device(&adev->dev);
 		byt_cht_cx2072x_dais[dai_index].codec_name = codec_name;
 	}
 
